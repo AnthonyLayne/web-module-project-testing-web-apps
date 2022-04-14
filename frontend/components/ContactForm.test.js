@@ -16,7 +16,13 @@ test("renders the contact form header", () => {
   expect(contactHeader).toBeTruthy();
 });
 
-test("renders ONE error message if user enters less then 5 characters into firstname.", async () => {});
+test("renders ONE error message if user enters less then 5 characters into firstname.", async () => {
+  render(<ContactForm />);
+  const firstName = screen.getByLabelText(/First Name*/i);
+  userEvent.type(firstName, "1235");
+  const errMssg = await screen.findAllByTestId("error");
+  expect(errMssg).toHaveLength(1);
+});
 
 test("renders THREE error messages if user enters no values into any fields.", async () => {});
 
